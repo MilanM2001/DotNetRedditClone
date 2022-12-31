@@ -1,0 +1,54 @@
+<div>
+    <div>
+        <mat-card class="add-post-card">
+            <mat-card-title class="card-title-main">Adding Rules to {{community.name}}</mat-card-title>
+
+            <div class="form-group">
+                <form [formGroup]="ruleFormGroup">
+
+                    <div class="form-group col-3">
+                        <mat-card-title class="rule-name">Rule Name</mat-card-title>
+                        <input type="text" maxlength="16" class="form-control" formControlName="ruleName"
+                            [ngClass]="{ 'is-invalid': submittedRule && ruleGroup['ruleName'].errors}">
+                        <div *ngIf="submittedRule && ruleGroup['ruleName'].errors" class="invalid-feedback">
+                            <div *ngIf="ruleGroup['ruleName'].errors['required']">Name is required.</div>
+                            <div *ngIf="ruleGroup['ruleName'].errors['minlength']">Name must be at least 3 characters
+                                long.</div>
+                            <div *ngIf="ruleGroup['ruleName'].errors['maxlength']">Name must not exceed 15 characters.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-6">
+                        <mat-card-title class="rule-description">Rule Description</mat-card-title>
+                        <input type="text" maxlength="51" class="form-control" formControlName="ruleDescription"
+                            [ngClass]="{ 'is-invalid': submittedRule && ruleGroup['ruleDescription'].errors}">
+                        <div *ngIf="submittedRule && ruleGroup['ruleDescription'].errors" class="invalid-feedback">
+                            <div *ngIf="ruleGroup['ruleDescription'].errors['required']">Description is required.</div>
+                            <div *ngIf="ruleGroup['ruleDescription'].errors['minlength']">Name must be at least 3
+                                characters long.</div>
+                            <div *ngIf="ruleGroup['ruleDescription'].errors['maxlength']">Name must not exceed 50
+                                characters.</div>
+                        </div>
+                        <button (click)="addRule()" class="btn btn-success">Add Rule</button>
+                    </div>
+
+                </form>
+            </div>
+
+            <div *ngIf="newRules.length > 0" class="form-group">
+                    <button type="submit" class="btn btn-primary" (click)="onSubmit()">Update Rules of {{community.name}}</button>
+            </div>
+
+        </mat-card>
+
+        <mat-card class="rules-card">
+            <div>
+                <mat-card-title>Added Rules</mat-card-title>
+                <div *ngFor="let rule of newRules">
+                    <h4>Rule: {{rule.description}}</h4>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+</div>
